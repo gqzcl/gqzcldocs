@@ -17,13 +17,16 @@
     <script>
         window.$docsify = {
             name: 'gqzclblog',
+            nameLink: '#/README',
             repo: 'https://github.com/gqzcl',
             maxLevel: 5, //最大支持渲染的标题层级
             subMaxLevel: 3,
             homepage: 'README.md',
+            onlyCover: false,
             coverpage: true,
             loadSidebar: true,
             auto2top: true, //切换页面后是否自动跳转到页面顶部
+            //全局搜索
             search: {
                 maxAge: 86400000, // 过期时间，单位毫秒，默认一天
                 paths: 'auto',
@@ -32,14 +35,30 @@
                 // 搜索标题的最大程级, 1 - 6
                 depth: 6,
             },
+            //复制代码到剪贴板
+            copyCode: {
+                buttonText: 'Copy',
+                errorText: 'Error',
+                successText: 'Copied'
+            },
             plugins: [
-                EditOnGithubPlugin.create('https://github.com/gqzcl/gqzcldocs/master')
+                EditOnGithubPlugin.create('https://github.com/gqzcl/gqzcldocs/blob/master/')
             ],
+            //选项卡
+            tabs: {
+                persist: true, // default
+                sync: true, // default
+                theme: 'classic', // default
+                tabComments: true, // default
+                tabHeadings: true // default
+            },
         }
     </script>
     <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
     <!--Java代码高亮-->
     <script src="//unpkg.com/prismjs/components/prism-java.js"></script>
+    <!--Go代码高亮-->
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-go.min.js"></script>
     <!--全文搜索,直接用官方提供的无法生效-->
     <script src="https://cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
     <!-- 复制到剪贴板 -->
@@ -48,6 +67,10 @@
     <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
     <!-- 字数统计 -->
     <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+    <!-- 选项卡（https://jhildenbiddle.github.io/docsify-tabs/#/） -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+    <!-- Production -->
+    <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
 </body>
 
 </html>

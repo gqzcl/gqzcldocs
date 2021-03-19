@@ -17,7 +17,7 @@
     <script>
         window.$docsify = {
             name: 'gqzclblog',
-            repo: 'https://github.com/Snailclimb/JavaGuide-Interview',
+            repo: 'https://github.com/gqzcl',
             maxLevel: 5, //最大支持渲染的标题层级
             subMaxLevel: 3,
             homepage: 'README.md',
@@ -25,15 +25,15 @@
             loadSidebar: true,
             auto2top: true, //切换页面后是否自动跳转到页面顶部
             search: {
-                //maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+                maxAge: 86400000, // 过期时间，单位毫秒，默认一天
                 paths: 'auto',
                 placeholder: '搜索',
                 noData: '找不到结果',
                 // 搜索标题的最大程级, 1 - 6
-                depth: 3,
+                depth: 6,
             },
             plugins: [
-                EditOnGithubPlugin.create('https://github.com/gqzcl/gqzclblog/master/')
+                EditOnGithubPlugin.create('https://github.com/gqzcl/gqzcldocs/master')
             ],
         }
     </script>

@@ -1,3 +1,3 @@
-# Gqzcl' Blog
+# gqzcl doc
 
 > 记录

@@ -639,6 +639,211 @@ func main() {
 }
 ```
 
-## 
+## Go 里的数据结构(TODO)
 
+### 图
+
+### 哈希表
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+const SIZE = 15
+
+type Node struct {
+	Value int
+	Next  *Node
+}
+type HashTable struct {
+	Table map[int]*Node
+	Size  int
+}
+
+func hashFunction(i, size int) int {
+	return (i % size)
+}
+func insert(hash *HashTable, value int) int {
+	index := hashFunction(value, hash.Size)
+	element := Node{Value: value, Next: hash.Table[index]}
+	hash.Table[index] = &element
+	return index
+}
+func traverse(hash *HashTable) {
+	for k := range hash.Table {
+		if hash.Table[k] != nil {
+			t := hash.Table[k]
+			for t != nil {
+				fmt.Printf("%d -> ", t.Value)
+				t = t.Next
+			}
+		}
+		fmt.Println()
+	}
+}
+func main() {
+	table := make(map[int]*Node, SIZE)
+	hash := &HashTable{Table: table, Size: SIZE}
+	fmt.Println("Numbder of spaces:", hash.Size)
+	for i := 0; i < 120; i++ {
+		insert(hash, i)
+	}
+	traverse(hash)
+}
+```
+
+### 链表
+
+### 双向链表
+
+### 队列
+
+### 栈
+
+## [flag 包](http://docscn.studygolang.com/pkg/flag/)
+
+Value接口用于将动态的值保存在一个 flag 里（默认值被表示为一个字符串）。
+
+如果 Value 接口具有 IsBoolFlag() 方法，且返回真，命令行解析会将 -name 等价于 -name=true，而不是使用下一个命令行参数
+
+对于每个存在的 flag，Set 会按顺序调用一次。 flag 包可以使用零值接收器(例如 nil 指针)调用 String 方法。
+```go
+//funWithFlag.go中使用的flag.Var()函数创建一个满足flag.Value接口的任意类型的标识，flag.Value接口定义如下：
+type Value interface {
+	String() string
+	Set(string) error
+}
+```
+
+```go
+package main
+
+import (
+	"flag"
+	"fmt"
+	"strings"
+)
+type NamesFlag struct {
+	Names []string
+}
+
+func (s *NamesFlag) GetNames() []string {
+	return s.Names
+}
+func (s *NamesFlag) String() string {
+	return fmt.Sprint(s.Names)
+}
+
+//Set() 方法确保相关命令行选项没有被设置。之后，获取输入并使用 strings.Split() 函数来分隔参数。最后，参数被保存在 NamesFlag 结构的 Names 字段
+func (s *NamesFlag) Set(v string) error {
+	if len(s.Names) > 0 {
+		return fmt.Errorf("Cannot use names flag more than once!")
+	}
+	names := strings.Split(v, ",")
+	for _, item := range names {
+		s.Names = append(s.Names, item)
+	}
+	return nil
+}
+func main() {
+	var manyNames NamesFlag
+	minusK := flag.Int("k:", 0, "An int")
+	minusO := flag.String("o", "Mihalis", "The name")
+	flag.Var(&manyNames, "names", "Comma-separated list")
+	flag.Parse()
+	fmt.Println("-k:", *minusK)
+	fmt.Println("-o:", *minusO)
+	for i, item := range manyNames.GetNames() {
+		fmt.Println(i, item)
+	}
+	fmt.Println("Remaing command-line arugments:")
+	for index, val := range flag.Args() {
+		fmt.Println(index, ":", val)
+	}
+}
+```
+```sh
+go run gcs.go -names=Mihalis,Jim,Athina -o=str -k: 12 one two
+-k: 12
+-o: str
+0 Mihalis
+1 Jim
+2 Athina
+Remaing command-line arugments:
+0 : one
+1 : two
+```
+
+## [bufio 包](http://docscn.studygolang.com/pkg/bufio/)
+
+读取文本文件可以用三种方式：逐行、逐词、逐字符读取。逐行读取最简单，逐词则相对较难。
+
+bufio 包是关于缓冲输入输出的
+
+下面代码是关于逐词读取的，其他两种类似
+
+```go
+package main
+
+import (
+	"bufio"
+	"flag"
+	"fmt"
+	"io"
+	"os"
+	"regexp"
+)
+
+func lineByLine(file string) error {
+	var err error
+	f, err := os.Open(file)//读取文件
+	if err != nil {
+		return err
+	}
+	defer f.Close()//关闭文件
+	r := bufio.NewReader(f)//创建一个读实例
+	for {
+		//调用bufio.ReadString()逐行读取文件。行分隔符通过bufio.ReadString()参数指定，它指示bufio.ReadString()一直读取，直到碰到行分隔符为止。
+		//每个读取行里包含了换行符，所以输出行时应使用fmt.Print()
+		line, err := r.ReadString('\n')
+		//遇到结束符停止
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			fmt.Printf("error reading file %s", err)
+			break
+		}
+		//正则表达式regexp.MustCompile("[^\\s]+")使用空格分割单词
+		r := regexp.MustCompile("[^\\s]+")
+		words := r.FindAllString(line, -1)
+		for i := 0; i < len(words); i++ {
+			fmt.Printf(words[i])
+		}
+		//逐字符读取这里需要使用string()转换为字符，因为x是rune类型
+		//for _, x := range line {
+        //    fmt.Println(string(x))
+        //}
+	}
+	return nil
+}
+func main() {
+	flag.Parse()
+	if len(flag.Args()) == 0 {
+		fmt.Printf("usage: byLine <file1> [<file2> ...]\n")
+		return
+	}
+	for _, file := range flag.Args() {
+		err := lineByLine(file)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+}
+```
+bufio 包 中buffer 中一个token的最大长度为64\*1024
+
+更多参阅 [bufio](http://docscn.studygolang.com/pkg/bufio/) 包
 

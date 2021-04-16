@@ -2,7 +2,7 @@
 https://developer.aliyun.com/mirror/NPM?from=tnpm
 
 $ sudo npm install -g cnpm --registry=https://registry.npm.taobao.org
- 
+
 安装 
 $ cnpm install [name]
 
@@ -13,3 +13,7 @@ $ cnpm sync connect
 当然, 你可以直接通过 web 方式来同步: /sync/connect
 
 $ open https://npm.taobao.org/sync/connect
+
+## yarn
+
+```npm install -global yarn```

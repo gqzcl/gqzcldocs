@@ -17,7 +17,7 @@
 
 	* [实效go编程](docs/Go/实效go编程.md)
 	* [go编程规范](docs/Go/go编程规范.md)
-	* [go面试题](docs/Go/go面试题.md)
+	* [go面试1](docs/Go/go面试1.md)
 	* [go面试2](docs/Go/go面试2.md)
 	* [Master_Go](docs/Go/Master_Go.md)
 	* [Uber_Go语言编码规范](docs/Go/Uber_Go语言编码规范.md)

@@ -1,3 +1,5 @@
+
+
 ## 查询表字段及属性
 
 SELECT column_name,column_type,IS_NULLABLE,column_key FROM information_schema.columns WHERE

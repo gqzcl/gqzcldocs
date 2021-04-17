@@ -97,5 +97,5 @@ term
 ### Task List
 
 - [x] Write the press release
-- [ ] Update the website
+- [x] Update the website
 - [ ] Contact the media

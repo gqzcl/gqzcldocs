@@ -20,7 +20,7 @@ func main() {
 	// defer sidebar.Close()
 
 	filenames := make([]string, 0, 500)
-	filepath.Walk("./docs", func(path string, info os.FileInfo, err error) error {
+	filepath.Walk("./文档", func(path string, info os.FileInfo, err error) error {
 		if filepath.Ext(path) == ".md" || filepath.Ext(path) == "" {
 			// fmt.Println(path)
 			filenames = append(filenames, path)
@@ -32,10 +32,10 @@ func main() {
 	// 	fmt.Println(filenames[i])
 	// }
 
-	f1, _ := os.Create("_sidebar.md")
+	f1, _ := os.Create("./文档/_sidebar.md")
 	w := bufio.NewWriter(f1)
-	for _, pathname := range filenames[1:] {
-		// fmt.Println(pathname)
+	for _, pathname := range filenames {
+		fmt.Println(pathname)
 		name := filepath.Base(pathname)
 		// fmt.Println(name)
 		if filepath.Ext(name) == ".md" {

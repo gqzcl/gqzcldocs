@@ -8,12 +8,18 @@
     <meta name="description" content="Description">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.4/dist/css/layui.css">
 </head>
 
 <body>
     <div id="app">加载中</div>
+    <!--Vue2.0支持-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- docsify-edit-on-github -->
     <script src="//unpkg.com/docsify-edit-on-github/index.js"></script>
+    <!-- 引入 layui.js -->
+    <script src="//unpkg.com/layui@2.6.4/dist/layui.js"></script>
     <script>
         window.$docsify = {
             name: 'gqzclblog',
@@ -68,7 +74,7 @@
     <script src="//unpkg.com/prismjs@1/components/prism-go.min.js"></script>
     <!--Python代码高亮-->
     <script src="//unpkg.com/prismjs@1/components/prism-python.min.js"></script>
-    <!--全文搜索,直接用官方提供的无法生效-->
+    <!--全文搜索-->
     <script src="https://cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
     <!-- 复制到剪贴板 -->
     <script src="//unpkg.com/docsify-copy-code"></script>
@@ -78,8 +84,6 @@
     <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
     <!-- 选项卡（https://jhildenbiddle.github.io/docsify-tabs/#/） -->
     <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
-    <!-- Production -->
-    <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
 </body>
 
 </html>
